@@ -14,7 +14,7 @@ const contactsSchema = new Schema(
             type: String
         },
         isFavourite: {
-            type: boolean,
+            type: Boolean,
             default: false
         },
         contactType: {
@@ -28,6 +28,6 @@ const contactsSchema = new Schema(
         timestamps: true,
         versionKey: false
     }
-)
+);
 
 export const ContactsCollection = model('contacts', contactsSchema);
