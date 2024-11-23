@@ -16,7 +16,14 @@ export const createContact = async (payload) => {
 };
 
 export const updateContact = async (contactId, updateData) => {
-    const contact = await ContactsCollection.findByIdAndUpdate(contactId, updateData);
+    const contact = await ContactsCollection.findByIdAndUpdate(
+        contactId,
+        updateData,
+        {
+            new: true,
+            runValidators: true
+        }
+    );
     return contact;
 };
 
