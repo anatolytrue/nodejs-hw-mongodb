@@ -6,13 +6,26 @@ export const getAllContacts = async ({
     page = 1,
     perPage = 10,
     sortOrder = SORT_ORDER.ASC,
-    sortBy = '_id'
+    sortBy = '_id',
+    filter = {}
 }) => {
     const limit = perPage;
     const skip = page > 0 ? (page - 1) * perPage : 0;
 
-    const contactsQuery = ContactsCollection.find();
-    const contactsCount = await ContactsCollection.find().merge(contactsQuery).countDocuments();
+    const contactsQuery = ContactsCollection
+        .find();
+
+    if (filter.contactType) {
+        contactsQuery.where('contactType').equals(filter.contactType);
+    };
+    if (typeof filter.isFavorite !== 'undefined' && filter.isFavorite !== null) {
+        contactsQuery.where('isFavorite').equals(filter.isFavorite);
+    }
+
+    const contactsCount = await ContactsCollection
+        .find()
+        .merge(contactsQuery)
+        .countDocuments();
 
 
     const contacts = await contactsQuery
