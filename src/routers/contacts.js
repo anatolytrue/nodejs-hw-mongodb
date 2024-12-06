@@ -1,4 +1,4 @@
-import express from "express";
+import {Router, json} from "express";
 
 import {
     getContactsController,
@@ -12,8 +12,8 @@ import { validateBody } from "../middlewares/validateBody.js";
 import { createContactSchema, updateContactSchema } from "../validation/contacts.js";
 import { isValidId } from "../middlewares/isValidId.js";
 
-const jsonParser = express.json();
-const router = express.Router();
+const jsonParser = json();
+const router = Router();
 
 router.get(
     '/contacts',
