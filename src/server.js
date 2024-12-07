@@ -30,19 +30,9 @@ export const setupServer = () => {
     app.use("*", notFoundHandler);
     app.use(errorHandler);
 
-    // app.use((_, res, next) => {
-    //     res.status(404).json({
-    //         status: 'error',
-    //         code: 404,
-    //         message: 'Not found',
-    //         data: 'Not found',
-    //     });
-    // });
-
     return app;
 };
 
-// const PORT = process.env.PORT || 3000;
 const app = setupServer();
 
 app.listen(PORT, () => {
