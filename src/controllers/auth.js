@@ -39,7 +39,7 @@ export const loginUserController = async (req, res) => {
 
 export const logoutUserController = async(req, res) => {
     if (req.cookies.sessionId) {
-        await logoutUser(res.cookies.sessionId);
+        await logoutUser(req.cookies.sessionId);
     }
 
     res.clearCookie('sessionId');
