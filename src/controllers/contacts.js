@@ -9,6 +9,9 @@ import createHttpError from "http-errors";
 import { parsePaginationParams } from "../utils/parsePaginationParams.js";
 import { parseSortParams } from "../utils/parseSortParams.js";
 import { parseFilterParams } from "../utils/parseFilterParams.js";
+import { saveFileToUploadDir } from "../utils/saveFileToUploadDir.js";
+import { saveFileToCloudinary } from "../utils/saveFileToCloudinary.js";
+import { env } from "../utils/env.js";
 
 
 export const getContactsController = async (req, res) => {
@@ -49,8 +52,29 @@ export const getContactByIdController = async (req, res) => {
 
 export const createContactsController = async (req, res) => {
 
-    const {name, phoneNumber, email, isFavorite, contactType} = req.body;
-    const newContact = await createContact({name, phoneNumber, email, isFavorite, contactType, userId: req.user._id} );
+    const {
+        name,
+        phoneNumber,
+        email,
+        isFavorite,
+        contactType
+    } = req.body;
+    const photo = req.file;
+
+    let photoUrl;
+    if (photo) {
+        photoUrl = await saveFileToCloudinary(photo);
+    }
+
+    const newContact = await createContact({
+        name,
+        phoneNumber,
+        email,
+        isFavorite,
+        contactType,
+        userId: req.user._id,
+        photo: photoUrl
+    });
 
     res.status(201).json({
         status: 201,
@@ -61,15 +85,32 @@ export const createContactsController = async (req, res) => {
 
 export const patchContactController = async (req, res) => {
     const { contactId } = req.params;
+    const photo = req.file;
+
+    let photoUrl;
+
+    if (photo) {
+        if (env('ENABLE_CLOUDINARY') === 'TRUE') {
+            photoUrl = await saveFileToCloudinary(photo);
+        } else {
+            photoUrl = await saveFileToUploadDir(photo);
+        }
+    }
+
     const contact = {
         name: req.body.name,
         phoneNumber: req.body.phoneNumber,
         email: req.body.email,
         isFavorite: req.body.isFavorite,
-        contactType: req.body.contactType
+        contactType: req.body.contactType,
+        ...(photoUrl && { photo: photoUrl })
     };
 
-    const updatedContact = await updateContact(contactId, req.user._id, contact);
+    const updatedContact = await updateContact(
+        contactId,
+        req.user._id,
+        contact,
+    );
 
     if (!updatedContact) {
         throw new createHttpError.NotFound('Student not found');
