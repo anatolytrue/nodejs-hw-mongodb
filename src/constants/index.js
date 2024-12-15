@@ -1,5 +1,5 @@
 import path from 'node:path';
-import { env } from '../utils/env';
+import { env } from '../utils/env.js';
 
 export const SORT_ORDER = {
     ASC: 'asc',
