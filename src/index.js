@@ -1,3 +1,6 @@
+import dotenv from 'dotenv';
+dotenv.config();
+
 import { initMongoDB } from "./db/initMongoConnection.js";
 import { setupServer } from "./server.js";
 import { createDirIfNotExists } from "./utils/createDirIfNotExists.js";

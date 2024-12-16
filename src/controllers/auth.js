@@ -1,6 +1,6 @@
 import { registerUser, loginUser, logoutUser, refreshUserSession, resetPassword } from "../services/auth.js";
 import { ONE_DAY } from "../constants/index.js";
-import { requestResetToken } from "../validation/auth.js";
+import { requestResetToken } from "../services/auth.js";
 
 const setupSession = (res, session) => {
     res.cookie('refreshToken', session.refreshToken, {
