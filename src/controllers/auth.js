@@ -1,6 +1,6 @@
 import { registerUser, loginUser, logoutUser, refreshUserSession, resetPassword } from "../services/auth.js";
 import { ONE_DAY } from "../constants/index.js";
-import { requestResetToken } from "../services/auth.js";
+import { requestResetToken, validateResetToken} from "../services/auth.js";
 
 const setupSession = (res, session) => {
     res.cookie('refreshToken', session.refreshToken, {
@@ -72,6 +72,19 @@ export const requestResetEmailController = async (req, res) => {
         message: 'Reset password email was successfully sent!',
         status: 200,
         data: {}
+    });
+};
+
+export const validateResetTokenController = async (req, res) => {
+    const { token } = req.query;
+    const decodedToken = await validateResetToken({ token });
+
+    res.status(200).json({
+        status: 200,
+        message: "Token is valid",
+        data: {
+            decodedToken
+        }
     });
 };
 
