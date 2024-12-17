@@ -13,7 +13,8 @@ import {
     logoutUserController,
     refreshSessionController,
     requestResetEmailController,
-    resetPasswordController
+    resetPasswordController,
+    validateResetTokenController
 } from '../controllers/auth.js';
 import { validateBody } from '../middlewares/validateBody.js';
 
@@ -47,10 +48,17 @@ router.post(
     ctrlWrapper(requestResetEmailController)
 );
 
-router.post(
+router.get(
     '/reset-password',
+    ctrlWrapper(validateResetTokenController)
+);
+
+router.post(
+    '/reset-pwd',
     validateBody(resetPasswordSchema),
     ctrlWrapper(resetPasswordController)
 );
+
+
 
 export default router;
