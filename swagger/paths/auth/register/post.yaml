@@ -1,0 +1,43 @@
+post:
+  tags:
+    - auth
+  summary: Register a new user
+  description: Create a new user account
+  operationId: registerUser
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            name:
+              type: string
+              example: 'John Doe'
+            email:
+              type: string
+              example: 'john.doe@example.com'
+            password:
+              type: string
+              example: 'password123'
+  responses:
+    201:
+      description: User registered successfully
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/User'
+    400:
+      $ref: '#/components/responses/ValidationError'
+    409:
+      description: Email already in use
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    500:
+      description: Server error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'

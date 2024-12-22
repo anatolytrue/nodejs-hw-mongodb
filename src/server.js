@@ -2,7 +2,8 @@ import express from "express";
 import cors from "cors";
 import pinoHttp from "pino-http";
 import cookieParser from "cookie-parser";
-
+import swaggerUi from 'swagger-ui-express';
+import specs from '../swaggerConfig.js';
 import router from "./routers/index.js";
 import { env } from './utils/env.js';
 import { notFoundHandler } from "./middlewares/notFoundHandler.js";
@@ -27,6 +28,8 @@ export const setupServer = () => {
     );
     app.use('/uploads', express.static(UPLOAD_DIR));
 
+    app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
+    
     app.use(router);
 
     app.use("*", notFoundHandler);
