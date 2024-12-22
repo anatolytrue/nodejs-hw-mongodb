@@ -1,0 +1,36 @@
+post:
+  tags:
+    - auth
+  summary: User login
+  description: Authenticate user and return tokens
+  operationId: loginUser
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            email:
+              type: string
+              example: 'john.doe@example.com'
+            password:
+              type: string
+              example: 'password123'
+  responses:
+    200:
+      description: User authenticated successfully
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Session'
+    401:
+      $ref: '#/components/responses/Unauthorized'
+    404:
+      $ref: '#/components/responses/NotFound'
+    500:
+      description: Server error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'

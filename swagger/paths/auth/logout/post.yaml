@@ -1,0 +1,25 @@
+post:
+  tags:
+    - auth
+  summary: User logout
+  description: Logout user and invalidate session
+  operationId: logoutUser
+  responses:
+    200:
+      description: User logged out successfully
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                example: 'User logged out successfully'
+    401:
+      $ref: '#/components/responses/Unauthorized'
+    500:
+      description: Server error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
