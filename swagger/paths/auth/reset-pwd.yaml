@@ -1,6 +1,6 @@
 post:
   tags:
-    - auth
+    - Auth
   summary: Reset password
   description: Reset the password using the provided token
   operationId: resetPassword
@@ -10,16 +10,23 @@ post:
       application/json:
         schema:
           type: object
+          required:
+            - token
+            - password
           properties:
             password:
+              description: New password
               type: string
               example: 'newPassword123'
             token:
+              description: Reset token from the email
               type: string
               example: 'eyJhbGciOiJIUzI1NiIsInR...'
+  security:
+    - bearerAuth: []
   responses:
     200:
-      description: Password reset successfully
+      description: Password was successfully reset!
       content:
         application/json:
           schema:
@@ -30,16 +37,12 @@ post:
                 example: 200
               message:
                 type: string
-                example: 'Password has been successfully reset.'
+                example: 'Password has been successfully reset'
     400:
-      $ref: '#/components/responses/ValidationError'
+      $ref: '../../components/responses/400.yaml'
     404:
-      $ref: '#/components/responses/NotFound'
+      $ref: '../../components/responses/404.yaml'
     401:
-      $ref: '#/components/responses/Unauthorized'
+      $ref: '../../components/responses/401.yaml'
     500:
-      description: Server error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
+      $ref: '../../components/responses/500.yaml'

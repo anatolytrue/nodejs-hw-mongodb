@@ -1,0 +1,19 @@
+type: object
+properties:
+  userId:
+    type: string
+    example: '5f8d0d55b54764421b7156ff'
+  accessToken:
+    type: string
+    example: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...'
+  refreshToken:
+    type: string
+    example: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...'
+  accessTokenValidUntil:
+    type: string
+    format: date-time
+    example: '2023-01-01T00:00:00.000Z'
+  refreshTokenValidUntil:
+    type: string
+    format: date-time
+    example: '2023-01-02T00:00:00.000Z'

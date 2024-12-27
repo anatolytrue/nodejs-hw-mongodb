@@ -1,55 +1,107 @@
-get:
-  tags:
-    - contacts
-  summary: Get all contacts
-  description: Retrieve a list of all contacts
-  operationId: getContacts
-  parameters:
-    - name: page
-      in: query
-      required: false
-      description: Page number
-      schema:
-        type: integer
-        example: 1
-    - name: perPage
-      in: query
-      required: false
-      description: Number of contacts per page
-      schema:
-        type: integer
-        example: 10
-    - name: sortBy
-      in: query
-      required: false
-      description: Field to sort by
-      schema:
-        type: string
-        example: 'name'
-    - name: sortOrder
-      in: query
-      required: false
-      description: Order of sorting (asc or desc)
-      schema:
-        type: string
-        example: 'asc'
-    - name: filter
-      in: query
-      required: false
-      description: Filter criteria
-      schema:
-        type: string
-        example: 'personal'
-  security:
-    - bearerAuth: []
-  responses:
-    200:
-      description: List of contacts
-      content:
-        application/json:
-          schema:
-            type: array
-            items:
-              $ref: '#/components/schemas/Contact'
-    401:
-      $ref: '#/components/responses/Unauthorized'
+tags:
+  - Contacts
+summary: Get all contacts
+description: Retrieve a list of all contacts
+operationId: getContacts
+parameters:
+  - name: page
+    in: query
+    required: false
+    description: Page number
+    schema:
+      type: integer
+      example: 1
+  - name: perPage
+    in: query
+    required: false
+    description: Number of contacts per page
+    schema:
+      type: integer
+      example: 10
+  - name: sortBy
+    in: query
+    required: false
+    description: Field to sort by
+    schema:
+      type: string
+      example: 'name'
+  - name: sortOrder
+    in: query
+    required: false
+    description: Order of sorting (asc or desc)
+    schema:
+      type: string
+      enum: ['asc', 'desc']
+      example: 'asc'
+  - name: contactType
+    in: query
+    required: false
+    description: Type of contact (e.g., work, home, personal)
+    schema:
+      type: string
+      enum: ['work', 'home', 'personal']
+      example: 'personal'
+  - name: isFavorite
+    in: query
+    required: false
+    description: Filter contacts by favorite status
+    schema:
+      type: boolean
+      example: true
+security:
+  - bearerAuth: []
+responses:
+  200:
+    description: Successfully found contacts!
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+            - data
+          properties:
+            status:
+              type: integer
+              example: 200
+            message:
+              type: string
+              example: 'Successfully found contacts!'
+            data:
+              type: object
+              required:
+                - data
+                - page
+                - perPage
+                - totalItems
+                - totalPages
+                - hasNextPage
+                - hasPreviousPage
+              properties:
+                data:
+                  type: array
+                  items:
+                    $ref: ../../components/schemas/contact.yaml
+                page:
+                  type: number
+                  example: 2
+                perPage:
+                  type: number
+                  example: 4
+                totalItems:
+                  type: number
+                  example: 4
+                totalPages:
+                  type: number
+                  example: 4
+                hasNextPage:
+                  type: boolean
+                  example: false
+                hasPreviousPage:
+                  type: boolean
+                  example: true
+  401:
+    $ref: ../../components/responses/401.yaml
+  500:
+    $ref: ../../components/responses/500.yaml

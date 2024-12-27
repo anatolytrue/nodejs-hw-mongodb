@@ -1,0 +1,14 @@
+type: object
+properties:
+  id:
+    type: string
+    example: '5f8d0d55b54764421b7156ff'
+  name:
+    type: string
+    example: 'John Doe'
+  email:
+    type: string
+    example: 'johndoe@example.com'
+  password:
+    type: string
+    example: '12345345'
