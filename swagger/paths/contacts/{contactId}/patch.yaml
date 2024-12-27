@@ -1,53 +1,82 @@
-patch:
-  tags:
-    - contacts
-  summary: Update contact by ID
-  description: Update the details of a contact by its ID
-  operationId: updateContact
-  parameters:
-    - name: contactId
-      in: path
-      required: true
-      description: ID of the contact to update
-      schema:
-        type: string
-  requestBody:
+tags:
+  - Contacts
+summary: Update contact by ID
+description: Update the details of a contact by its ID
+operationId: updateContact
+parameters:
+  - name: contactId
+    in: path
     required: true
+    description: ID of the contact to update
+    schema:
+      type: string
+      example: 5f8d0d55b54764421b7156ff
+requestBody:
+  required: true
+  content:
+    multipart/form-data:
+      schema:
+        type: object
+        properties:
+          name:
+            description: "Contact's name"
+            type: string
+            minLength: 3
+            maxLength: 20
+            example: 'John Doe'
+          phoneNumber:
+            description: "Contact's phone number"
+            type: string
+            minLength: 3
+            maxLength: 20
+            example: '+123456789'
+          email:
+            description: "Contact's email"
+            type: string
+            minLength: 3
+            maxLength: 20
+            example: 'johndoe@example.com'
+          isFavourite:
+            description: 'Is contact a favorite'
+            type: boolean
+            example: false
+          contactType:
+            description: "Contact's type"
+            type: string
+            enum: ['work', 'home', 'personal']
+            example: 'work'
+          photo:
+            description: "Contact's photo"
+            type: string
+            example: 'http://example.com/photo.jpg'
+security:
+  - bearerAuth: []
+responses:
+  200:
+    description: Contact updated successfully
     content:
       application/json:
         schema:
           type: object
+          required:
+            - status
+            - message
+            - data
           properties:
-            name:
+            status:
+              type: integer
+              example: 200
+            message:
               type: string
-              example: 'John Doe'
-            phoneNumber:
-              type: string
-              example: '+123456789'
-            email:
-              type: string
-              example: 'johndoe@example.com'
-            isFavourite:
-              type: boolean
-              example: false
-            contactType:
-              type: string
-              example: 'work'
-            photo:
-              type: string
-              example: 'http://example.com/photo.jpg'
-  security:
-    - bearerAuth: []
-  responses:
-    200:
-      description: Contact updated successfully
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Contact'
-    400:
-      $ref: '#/components/responses/ValidationError'
-    404:
-      $ref: '#/components/responses/NotFound'
-    401:
-      $ref: '#/components/responses/Unauthorized'
+              example: 'Successfully patched a contact!'
+            data:
+              type: object
+              $ref: '../../../components/schemas/contact.yaml'
+  400:
+    $ref: '../../../components/responses/400.yaml'
+  404:
+    $ref: '../../../components/responses/404.yaml'
+  401:
+    $ref: '../../../components/responses/401.yaml'
+  500:
+    $ref: '../../../components/responses/500.yaml'

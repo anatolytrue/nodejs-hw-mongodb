@@ -1,9 +1,11 @@
+import * as fs from "node:fs";
+import path from 'node:path';
 import express from "express";
 import cors from "cors";
 import pinoHttp from "pino-http";
 import cookieParser from "cookie-parser";
 import swaggerUi from 'swagger-ui-express';
-import specs from '../swaggerConfig.js';
+// import specs from '../swaggerConfig.js';
 import router from "./routers/index.js";
 import { env } from './utils/env.js';
 import { notFoundHandler } from "./middlewares/notFoundHandler.js";
@@ -11,6 +13,10 @@ import { errorHandler } from "./middlewares/errorHandler.js";
 import { UPLOAD_DIR } from "./constants/index.js";
 
 const PORT = Number(env('PORT', '3000'));
+
+const swaggerDocument = JSON.parse(
+    fs.readFileSync(path.resolve('docs/swagger.json'), 'utf-8')
+);
 
 export const setupServer = () => {
     const app = express();
@@ -28,8 +34,9 @@ export const setupServer = () => {
     );
     app.use('/uploads', express.static(UPLOAD_DIR));
 
-    app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
-    
+
+    app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
     app.use(router);
 
     app.use("*", notFoundHandler);
