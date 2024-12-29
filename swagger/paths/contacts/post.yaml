@@ -13,7 +13,6 @@ requestBody:
           - name
           - phoneNumber
           - contactType
-          - userId
         properties:
           name:
             type: string
@@ -36,12 +35,9 @@ requestBody:
             description: 'Type of contact'
             enum: [work, home, personal]
             example: 'personal'
-          userId:
-            type: string
-            description: 'ID of the user who owns the contact'
-            example: '5f8d0d55b54764421b7156ff'
           photo:
             type: string
+            format: binary
             description: "URL to contacts's photo"
             example: 'http://example.com/photo.jpg'
 security:

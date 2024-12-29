@@ -47,6 +47,7 @@ requestBody:
             example: 'work'
           photo:
             description: "Contact's photo"
+            format: binary
             type: string
             example: 'http://example.com/photo.jpg'
 security:
