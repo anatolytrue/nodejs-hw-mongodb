@@ -58,6 +58,10 @@ post:
       content:
         application/json:
           schema:
-            $ref: '../../components/schemas/error.yaml'
+            type: object
+            properties:
+              message:
+                type: string
+                example: 'Error message'
     500:
       $ref: '../../components/responses/500.yaml'

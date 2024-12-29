@@ -166,6 +166,7 @@
                   },
                   "photo": {
                     "description": "Contact's photo",
+                    "format": "binary",
                     "type": "string",
                     "example": "http://example.com/photo.jpg"
                   }
@@ -441,8 +442,7 @@
                 "required": [
                   "name",
                   "phoneNumber",
-                  "contactType",
-                  "userId"
+                  "contactType"
                 ],
                 "properties": {
                   "name": {
@@ -475,13 +475,9 @@
                     ],
                     "example": "personal"
                   },
-                  "userId": {
-                    "type": "string",
-                    "description": "ID of the user who owns the contact",
-                    "example": "5f8d0d55b54764421b7156ff"
-                  },
                   "photo": {
                     "type": "string",
+                    "format": "binary",
                     "description": "URL to contacts's photo",
                     "example": "http://example.com/photo.jpg"
                   }
@@ -617,7 +613,13 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/error"
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Error message"
+                    }
+                  }
                 }
               }
             }
@@ -948,6 +950,7 @@
       "contact": {
         "type": "object",
         "required": [
+          "id",
           "userId",
           "name",
           "phoneNumber",
@@ -1004,6 +1007,12 @@
       },
       "user": {
         "type": "object",
+        "required": [
+          "id",
+          "name",
+          "email",
+          "password"
+        ],
         "properties": {
           "id": {
             "type": "string",
@@ -1023,17 +1032,15 @@
           }
         }
       },
-      "error": {
-        "type": "object",
-        "properties": {
-          "message": {
-            "type": "string",
-            "example": "Error message"
-          }
-        }
-      },
       "session": {
         "type": "object",
+        "required": [
+          "userId",
+          "accessToken",
+          "refreshToken",
+          "accessTokenValidUntil",
+          "refreshTokenValidUntil"
+        ],
         "properties": {
           "userId": {
             "type": "string",
