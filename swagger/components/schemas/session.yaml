@@ -1,11 +1,15 @@
 type: object
 required:
+  - _id
   - userId
   - accessToken
   - refreshToken
   - accessTokenValidUntil
   - refreshTokenValidUntil
 properties:
+  _id:
+    type: string
+    example: '5f8d0d55b54764421b7156ff'
   userId:
     type: string
     example: '5f8d0d55b54764421b7156ff'
