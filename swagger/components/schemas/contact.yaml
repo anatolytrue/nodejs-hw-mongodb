@@ -1,6 +1,6 @@
 type: object
 required:
-  - id
+  - _id
   - userId
   - name
   - phoneNumber

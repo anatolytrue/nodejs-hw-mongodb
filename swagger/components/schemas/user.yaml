@@ -1,11 +1,11 @@
 type: object
 required:
-  - id
+  - _id
   - name
   - email
   - password
 properties:
-  id:
+  _id:
     type: string
     example: '5f8d0d55b54764421b7156ff'
   name:
