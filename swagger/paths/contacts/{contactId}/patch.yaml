@@ -37,7 +37,7 @@ requestBody:
             maxLength: 20
             example: 'johndoe@example.com'
           isFavourite:
-            description: 'Is contact a favorite'
+            description: 'Is contact a favourite'
             type: boolean
             example: false
           contactType:

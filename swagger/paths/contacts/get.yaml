@@ -41,10 +41,10 @@ parameters:
       type: string
       enum: ['work', 'home', 'personal']
       example: 'personal'
-  - name: isFavorite
+  - name: isFavourite
     in: query
     required: false
-    description: Filter contacts by favorite status
+    description: Filter contacts by favourite status
     schema:
       type: boolean
       example: true

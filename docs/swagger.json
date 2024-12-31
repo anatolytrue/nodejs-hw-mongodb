@@ -150,7 +150,7 @@
                     "example": "johndoe@example.com"
                   },
                   "isFavourite": {
-                    "description": "Is contact a favorite",
+                    "description": "Is contact a favourite",
                     "type": "boolean",
                     "example": false
                   },
@@ -336,10 +336,10 @@
             }
           },
           {
-            "name": "isFavorite",
+            "name": "isFavourite",
             "in": "query",
             "required": false,
-            "description": "Filter contacts by favorite status",
+            "description": "Filter contacts by favourite status",
             "schema": {
               "type": "boolean",
               "example": true
@@ -465,7 +465,7 @@
                   },
                   "isFavourite": {
                     "type": "boolean",
-                    "description": "Is the contact a favorite",
+                    "description": "Is the contact a favourite",
                     "example": false
                   },
                   "contactType": {
@@ -981,7 +981,7 @@
             "example": "janedoe@example.com"
           },
           "isFavourite": {
-            "description": "Contact's favorite",
+            "description": "Contact's favourite",
             "type": "boolean",
             "example": false
           },
