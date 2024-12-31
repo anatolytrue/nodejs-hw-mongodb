@@ -56,7 +56,7 @@ export const createContactsController = async (req, res) => {
         name,
         phoneNumber,
         email,
-        isFavorite,
+        isFavourite,
         contactType
     } = req.body;
     const photo = req.file;
@@ -70,7 +70,7 @@ export const createContactsController = async (req, res) => {
         name,
         phoneNumber,
         email,
-        isFavorite,
+        isFavourite,
         contactType,
         userId: req.user._id,
         photo: photoUrl
@@ -101,7 +101,7 @@ export const patchContactController = async (req, res) => {
         name: req.body.name,
         phoneNumber: req.body.phoneNumber,
         email: req.body.email,
-        isFavorite: req.body.isFavorite,
+        isFavourite: req.body.isFavourite,
         contactType: req.body.contactType,
         ...(photoUrl && { photo: photoUrl })
     };
@@ -113,7 +113,7 @@ export const patchContactController = async (req, res) => {
     );
 
     if (!updatedContact) {
-        throw new createHttpError.NotFound('Student not found');
+        throw new createHttpError.NotFound('Contact not found');
     };
 
         res.status(200).json({
